@@ -1,4 +1,35 @@
-import type {Kind,EnemyKind} from './game';
-export function portrait(kind:Kind|EnemyKind,tier=1){const colors:Record<string,string>={wick:'#ffc66e',bell:'#e89e91',anchor:'#8fbfc2',frost:'#a4ccec',drifter:'#aecbc7',runner:'#d9b8ee',shell:'#c4b497',admiral:'#e5a87b'};const c=colors[kind];const enemy=['drifter','runner','shell','admiral'].includes(kind);const body=enemy?`<path d="M24 71Q10 43 31 29Q47 14 64 29Q83 43 68 72L61 66L52 77L42 67L32 77Z" fill="${c}"/><path d="M26 65Q48 78 70 65" fill="none" stroke="#fff" opacity=".3"/>`:`<ellipse cx="48" cy="75" rx="29" ry="7" fill="#071e2b" opacity=".4"/><path d="M28 69L33 44H63L68 69Z" fill="${c}"/><rect x="26" y="67" width="44" height="8" rx="4" fill="#314a54"/>`;
-const detail=kind==='wick'?'<path d="M29 49V25Q48 12 67 25V49Z" fill="#ffdf94" stroke="#745b43" stroke-width="4"/><path d="M48 22Q34 36 48 43Q60 34 48 22" fill="#fff7cb"/><path d="M36 17Q48 7 60 17" fill="none" stroke="#745b43" stroke-width="4"/>':kind==='bell'?'<path d="M25 47Q30 23 48 24Q67 24 71 47Z" fill="#ecb79c" stroke="#835c54" stroke-width="4"/><circle cx="48" cy="49" r="6" fill="#ffe4b0"/><path d="M48 24V14" stroke="#e5ad85" stroke-width="5"/>':kind==='anchor'?'<path d="M48 21V61M28 46Q30 75 48 61Q67 75 69 46M34 35H62" fill="none" stroke="#c9ebdf" stroke-width="7"/><circle cx="48" cy="18" r="7" fill="none" stroke="#c9ebdf" stroke-width="5"/>':kind==='frost'?'<path d="M48 13L71 35L48 56L25 35Z" fill="#d4f4f7"/><path d="M48 13V56M25 35H71" stroke="#76adcf" stroke-width="3"/>':kind==='shell'?'<path d="M20 45Q22 10 48 12Q75 10 77 45Z" fill="#697c80" stroke="#d5ccad" stroke-width="4"/><path d="M48 16V39M30 22L38 40M66 22L58 40" stroke="#c4b497" stroke-width="3"/>':kind==='runner'?'<path d="M17 32L32 24L29 12L47 22L64 12L62 27L80 32" fill="#807397"/><path d="M10 52H23M6 61H20" stroke="#d9b8ee" stroke-width="3"/>':kind==='admiral'?'<path d="M19 31L16 11L36 20L48 5L60 20L79 11L76 31Z" fill="#f5cc88"/><path d="M22 44L48 61L74 44" fill="none" stroke="#345567" stroke-width="10"/>':'';
-return `<svg viewBox="0 0 96 88" aria-hidden="true">${body}${detail}<circle cx="39" cy="53" r="3" fill="#183440"/><circle cx="57" cy="53" r="3" fill="#183440"/>${tier===2?'<path d="M75 8L78 16L87 16L80 22L83 30L75 25L67 30L70 22L63 16L72 16Z" fill="#ffe19a"/>':''}</svg>`;}
+import type { Kind, EnemyKind } from "./game";
+export function portrait(kind: Kind | EnemyKind, tier = 1) {
+  const colors: Record<string, string> = {
+    wick: "#ffc66e",
+    bell: "#e89e91",
+    anchor: "#8fbfc2",
+    frost: "#a4ccec",
+    drifter: "#aecbc7",
+    runner: "#d9b8ee",
+    shell: "#c4b497",
+    admiral: "#e5a87b",
+  };
+  const c = colors[kind];
+  const enemy = ["drifter", "runner", "shell", "admiral"].includes(kind);
+  const body = enemy
+    ? `<path d="M24 71Q10 43 31 29Q47 14 64 29Q83 43 68 72L61 66L52 77L42 67L32 77Z" fill="${c}"/><path d="M26 65Q48 78 70 65" fill="none" stroke="#fff" opacity=".3"/>`
+    : `<ellipse cx="48" cy="75" rx="29" ry="7" fill="#071e2b" opacity=".4"/><path d="M28 69L33 44H63L68 69Z" fill="${c}"/><rect x="26" y="67" width="44" height="8" rx="4" fill="#314a54"/>`;
+  const detail =
+    kind === "wick"
+      ? '<path d="M29 49V25Q48 12 67 25V49Z" fill="#ffdf94" stroke="#745b43" stroke-width="4"/><path d="M48 22Q34 36 48 43Q60 34 48 22" fill="#fff7cb"/><path d="M36 17Q48 7 60 17" fill="none" stroke="#745b43" stroke-width="4"/>'
+      : kind === "bell"
+        ? '<path d="M25 47Q30 23 48 24Q67 24 71 47Z" fill="#ecb79c" stroke="#835c54" stroke-width="4"/><circle cx="48" cy="49" r="6" fill="#ffe4b0"/><path d="M48 24V14" stroke="#e5ad85" stroke-width="5"/>'
+        : kind === "anchor"
+          ? '<path d="M48 21V61M28 46Q30 75 48 61Q67 75 69 46M34 35H62" fill="none" stroke="#c9ebdf" stroke-width="7"/><circle cx="48" cy="18" r="7" fill="none" stroke="#c9ebdf" stroke-width="5"/>'
+          : kind === "frost"
+            ? '<path d="M48 13L71 35L48 56L25 35Z" fill="#d4f4f7"/><path d="M48 13V56M25 35H71" stroke="#76adcf" stroke-width="3"/>'
+            : kind === "shell"
+              ? '<path d="M20 45Q22 10 48 12Q75 10 77 45Z" fill="#697c80" stroke="#d5ccad" stroke-width="4"/><path d="M48 16V39M30 22L38 40M66 22L58 40" stroke="#c4b497" stroke-width="3"/>'
+              : kind === "runner"
+                ? '<path d="M17 32L32 24L29 12L47 22L64 12L62 27L80 32" fill="#807397"/><path d="M10 52H23M6 61H20" stroke="#d9b8ee" stroke-width="3"/>'
+                : kind === "admiral"
+                  ? '<path d="M19 31L16 11L36 20L48 5L60 20L79 11L76 31Z" fill="#f5cc88"/><path d="M22 44L48 61L74 44" fill="none" stroke="#345567" stroke-width="10"/>'
+                  : "";
+  return `<svg viewBox="0 0 96 88" aria-hidden="true">${body}${detail}<circle cx="39" cy="53" r="3" fill="#183440"/><circle cx="57" cy="53" r="3" fill="#183440"/>${tier === 2 ? '<path d="M75 8L78 16L87 16L80 22L83 30L75 25L67 30L70 22L63 16L72 16Z" fill="#ffe19a"/>' : ""}</svg>`;
+}

@@ -1,14 +1,140 @@
-import {test,expect} from 'vitest';
-import {createGame,place,collect,upgrade,startWave,step,decode,encode,advance} from '../src/game';
-test('motes can be collected only once and tier two can be bought once',()=>{const g=createGame();place(g,'wick',0,0);for(let i=0;i<141;i++)step(g,.05);const id=g.motes[0].id;const before=g.light;expect(collect(g,id)).toBe(true);expect(collect(g,id)).toBe(false);expect(g.light).toBe(before+25);const keeper=g.keepers[0];expect(upgrade(g,keeper.id)).toBe(true);const light=g.light;expect(upgrade(g,keeper.id)).toBe(false);expect(g.light).toBe(light);});
-test('pause freezes timers and mutations; reload restores exact active harbor paused',()=>{const g=createGame();place(g,'bell',0,1);startWave(g);for(let i=0;i<100;i++)step(g,.05);const restored=decode(encode(g))!;expect(restored.enemies).toEqual(g.enemies);expect(restored.light).toBe(g.light);expect(restored.paused).toBe(true);const before=encode(restored);step(restored,.1);expect(place(restored,'wick',1,0)).toBe(false);expect(encode(restored)).toBe(before);});
-test('empty defense loses, cannot call repeated waves, retry is a fresh chapter',()=>{const g=createGame(1);expect(startWave(g)).toBe(true);expect(startWave(g)).toBe(false);for(let i=0;i<3000;i++)step(g,.05);expect(g.phase).toBe('lost');expect(g.breaches).toBe(3);const retry=createGame(g.chapter);expect(retry.chapter).toBe(1);expect(retry.light).toBe(320);expect(retry.breaches).toBe(0);});
-test('invalid snapshots are rejected including hostile shapes and impossible progression',()=>{expect(decode('{')).toBe(null);expect(decode(JSON.stringify({...createGame(),chapter:9}))).toBe(null);expect(decode(JSON.stringify({...createGame(),keepers:[null]}))).toBe(null);expect(decode(JSON.stringify({...createGame(),phase:'complete'}))).toBe(null);const g=createGame();place(g,'wick',0,0);g.keepers.push({...g.keepers[0]});expect(decode(encode(g))).toBe(null);});
-test('a earned four-keeper formation protects nine waves and earns the ending once',()=>{let g=createGame();for(let chapter=0;chapter<3;chapter++){// Resource collection during unbounded preparation, through commands.
-place(g,'wick',0,0);place(g,'wick',1,0);
-for(let i=0;i<3200;i++){step(g,.05);for(const m of [...g.motes])collect(g,m.id);}
-for(let row=0;row<5;row++){expect(place(g,'bell',row,1)).toBe(true);expect(place(g,'frost',row,2)).toBe(true);expect(place(g,'anchor',row,4)).toBe(true);}
-for(const k of [...g.keepers])upgrade(g,k.id);
-for(let wave=0;wave<3;wave++){expect(startWave(g)).toBe(true);for(let i=0;i<5000&&g.phase==='battle';i++){step(g,.05);for(const m of [...g.motes])collect(g,m.id);}expect(g.phase).toBe(wave===2?'won':'prep');expect(g.breaches).toBe(0);}
-g=advance(g);}
-expect(g.phase).toBe('complete');expect(advance(g).phase).toBe('complete');expect(decode(encode(g))?.phase).toBe('complete');});
+import { test, expect } from "vitest";
+import {
+  createGame,
+  place,
+  collect,
+  upgrade,
+  startWave,
+  step,
+  decode,
+  encode,
+  advance,
+} from "../src/game";
+test("motes can be collected only once and tier two can be bought once", () => {
+  const g = createGame();
+  place(g, "wick", 0, 0);
+  for (let i = 0; i < 141; i++) step(g, 0.05);
+  const id = g.motes[0].id;
+  const before = g.light;
+  expect(collect(g, id)).toBe(true);
+  expect(collect(g, id)).toBe(false);
+  expect(g.light).toBe(before + 25);
+  const keeper = g.keepers[0];
+  expect(upgrade(g, keeper.id)).toBe(true);
+  const light = g.light;
+  expect(upgrade(g, keeper.id)).toBe(false);
+  expect(g.light).toBe(light);
+});
+test("pause freezes timers and mutations; reload restores exact active harbor paused", () => {
+  const g = createGame();
+  place(g, "bell", 0, 1);
+  startWave(g);
+  for (let i = 0; i < 100; i++) step(g, 0.05);
+  const restored = decode(encode(g))!;
+  expect(restored.enemies).toEqual(g.enemies);
+  expect(restored.light).toBe(g.light);
+  expect(restored.paused).toBe(true);
+  const before = encode(restored);
+  step(restored, 0.1);
+  expect(place(restored, "wick", 1, 0)).toBe(false);
+  expect(encode(restored)).toBe(before);
+});
+test("empty defense loses, cannot call repeated waves, retry is a fresh chapter", () => {
+  const g = createGame(1);
+  expect(startWave(g)).toBe(true);
+  expect(startWave(g)).toBe(false);
+  for (let i = 0; i < 3000; i++) step(g, 0.05);
+  expect(g.phase).toBe("lost");
+  expect(g.breaches).toBe(3);
+  const retry = createGame(g.chapter);
+  expect(retry.chapter).toBe(1);
+  expect(retry.light).toBe(320);
+  expect(retry.breaches).toBe(0);
+});
+test("invalid snapshots are rejected including hostile shapes and impossible progression", () => {
+  expect(decode("{")).toBe(null);
+  expect(decode(JSON.stringify({ ...createGame(), chapter: 9 }))).toBe(null);
+  expect(decode(JSON.stringify({ ...createGame(), keepers: [null] }))).toBe(
+    null,
+  );
+  expect(decode(JSON.stringify({ ...createGame(), phase: "complete" }))).toBe(
+    null,
+  );
+  const g = createGame();
+  place(g, "wick", 0, 0);
+  g.keepers.push({ ...g.keepers[0] });
+  expect(decode(encode(g))).toBe(null);
+});
+test("a earned four-keeper formation protects nine waves and earns the ending once", () => {
+  let g = createGame();
+  for (let chapter = 0; chapter < 3; chapter++) {
+    // Resource collection during unbounded preparation, through commands.
+    place(g, "wick", 0, 0);
+    place(g, "wick", 1, 0);
+    for (let i = 0; i < 3200; i++) {
+      step(g, 0.05);
+      for (const m of [...g.motes]) collect(g, m.id);
+    }
+    for (let row = 0; row < 5; row++) {
+      expect(place(g, "bell", row, 1)).toBe(true);
+      expect(place(g, "frost", row, 2)).toBe(true);
+      expect(place(g, "anchor", row, 4)).toBe(true);
+    }
+    for (const k of [...g.keepers]) upgrade(g, k.id);
+    for (let wave = 0; wave < 3; wave++) {
+      expect(startWave(g)).toBe(true);
+      for (let i = 0; i < 5000 && g.phase === "battle"; i++) {
+        step(g, 0.05);
+        for (const m of [...g.motes]) collect(g, m.id);
+      }
+      expect(g.phase).toBe(wave === 2 ? "won" : "prep");
+      expect(g.breaches).toBe(0);
+    }
+    g = advance(g);
+  }
+  expect(g.phase).toBe("complete");
+  expect(advance(g).phase).toBe("complete");
+  expect(decode(encode(g))?.phase).toBe("complete");
+});
+test("a forged early victory cannot skip a chapter", () => {
+  expect(decode(JSON.stringify({ ...createGame(), phase: "won" }))).toBe(null);
+});
+test("inherited keeper names cannot corrupt the economy", () => {
+  const g = createGame();
+  expect(place(g, "toString" as never, 0, 0)).toBe(false);
+  expect(g.light).toBe(320);
+});
+test("long preparation retains a readable save for idle shooters", () => {
+  const g = createGame();
+  place(g, "bell", 0, 0);
+  for (let i = 0; i < 100010; i++) step(g, 0.1);
+  expect(decode(encode(g))).not.toBe(null);
+});
+test("a full pier of upgraded Wicks remains saveable without immediate collection", () => {
+  const g = createGame();
+  place(g, "wick", 0, 0);
+  for (let i = 0; i < 20000; i++) {
+    step(g, 0.05);
+    for (const m of [...g.motes]) collect(g, m.id);
+  }
+  for (let row = 0; row < 5; row++)
+    for (let col = 0; col < 7; col++) {
+      if (row || col) place(g, "wick", row, col);
+    }
+  for (const k of g.keepers) upgrade(g, k.id);
+  let maximum = 0;
+  for (let i = 0; i < 1200; i++) {
+    step(g, 0.05);
+    maximum = Math.max(maximum, g.motes.length);
+    expect(decode(encode(g))).not.toBe(null);
+  }
+  expect(maximum).toBeGreaterThan(150);
+  expect(decode(encode(g))).not.toBe(null);
+});
+test("array-shaped save kinds are rejected rather than coerced", () => {
+  const g = createGame();
+  place(g, "wick", 0, 0);
+  const snapshot = JSON.parse(encode(g));
+  snapshot.keepers[0].kind = ["wick"];
+  expect(decode(JSON.stringify(snapshot))).toBe(null);
+});
