@@ -19,3 +19,7 @@ Saves use localStorage on this origin. Reload pauses an active voyage; hidden ta
 ## Development
 
 `npm run dev`, `npm run check`, `npm audit`. Strict TypeScript/Vite with Vitest at the public command, simulation and save seams. CI runs checks and audit on every push. See [spec](docs/spec.md), [verification](docs/verification.md), [reviews](docs/review.md), [glossary](GLOSSARY.md), and [ADR](docs/adr/0001-simulation-and-save.md).
+
+## Play online
+
+[Play the hosted game](https://intrepion.github.io/kata-inspired-by-plants-vs-zombies-codex-dot/)
