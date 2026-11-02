@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "gameId": "kata-inspired-by-plants-vs-zombies-codex-dot",
   "playUrl": "https://intrepion.github.io/kata-inspired-by-plants-vs-zombies-codex-dot/",
   "screenshots": [
@@ -12,6 +12,46 @@
         "sourcePath": "docs/screenshots/desktop-harbor.jpg",
         "deployedBuild": null,
         "captureDate": null
+      }
+    },
+    {
+      "path": "arcade/screenshots/ci-20261102-01.jpg",
+      "sha256": "ce5a93e78aef4cc5f1369be2f464faa476977f29e5d229a5408fc8f77a9b16ca",
+      "alt": "Lanterns at Low Tide gameplay, view 1",
+      "provenance": {
+        "kind": "ci_gameplay_capture",
+        "sourcePath": "arcade/capture-evidence/ci-20261102-01.png",
+        "sourceSha256": "6dd8ea06772277436da54f95e27e482ce4156264ae97797b4549c7fa7f7defaa",
+        "captureCommit": "0cc07b95c7d61518ba95c801bc757938058dd827",
+        "workflowRunId": "41412517154",
+        "inputHashes": {
+          "index.html": "375570e0511b095e92078b34e3409bb8b3c4124e5f3b11daae40fcad08903852",
+          "assets/index-D7X1gDOh.js": "25e88f0ae64f1d10966fb5a8045bcd20a91987f29b6a2834facb93ca2e5db608",
+          "assets/index-zqR43eip.css": "9a3f133e5a8ff9542da9bbcfd27f9d0c7f63821f4b41678c12fc78489b1d46d0"
+        },
+        "publishedFilesVerifiedAt": "2026-11-02T19:01:20Z",
+        "captureRecordPath": "arcade/capture-evidence/ci-20261102-record.json",
+        "captureRecordSha256": "f729a9f1c28e8161b144a40f6adebfd45a28c6ef3e1de9f79cd587cd9b8d8260"
+      }
+    },
+    {
+      "path": "arcade/screenshots/ci-20261102-02.jpg",
+      "sha256": "60a7a65798313879c5bcc502b90955d440234869fd7eedb095a796d9feab94e2",
+      "alt": "Lanterns at Low Tide gameplay, view 2",
+      "provenance": {
+        "kind": "ci_gameplay_capture",
+        "sourcePath": "arcade/capture-evidence/ci-20261102-02.png",
+        "sourceSha256": "ccf6a7e1201fa217cb3570a7b965e7a39abd86e4c7f69447012258f4f0fc062a",
+        "captureCommit": "0cc07b95c7d61518ba95c801bc757938058dd827",
+        "workflowRunId": "41412517154",
+        "inputHashes": {
+          "index.html": "375570e0511b095e92078b34e3409bb8b3c4124e5f3b11daae40fcad08903852",
+          "assets/index-D7X1gDOh.js": "25e88f0ae64f1d10966fb5a8045bcd20a91987f29b6a2834facb93ca2e5db608",
+          "assets/index-zqR43eip.css": "9a3f133e5a8ff9542da9bbcfd27f9d0c7f63821f4b41678c12fc78489b1d46d0"
+        },
+        "publishedFilesVerifiedAt": "2026-11-02T19:01:20Z",
+        "captureRecordPath": "arcade/capture-evidence/ci-20261102-record.json",
+        "captureRecordSha256": "f729a9f1c28e8161b144a40f6adebfd45a28c6ef3e1de9f79cd587cd9b8d8260"
       }
     }
   ]

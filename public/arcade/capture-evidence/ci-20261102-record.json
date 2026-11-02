@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "workflowCommit": "0fe59c33fb014a05b87798965fba958d6e33bb68",
+  "sourceCommit": "0cc07b95c7d61518ba95c801bc757938058dd827",
+  "runId": "41412517154",
+  "url": "http://127.0.0.1:4238/",
+  "inputs": {
+    "index.html": "375570e0511b095e92078b34e3409bb8b3c4124e5f3b11daae40fcad08903852",
+    "assets/index-D7X1gDOh.js": "25e88f0ae64f1d10966fb5a8045bcd20a91987f29b6a2834facb93ca2e5db608",
+    "assets/index-zqR43eip.css": "9a3f133e5a8ff9542da9bbcfd27f9d0c7f63821f4b41678c12fc78489b1d46d0"
+  },
+  "browser": "153.0.8010.12",
+  "viewport": {
+    "width": 1280,
+    "height": 1000
+  },
+  "screenshots": [
+    "low-tide-lanterns-01.png",
+    "low-tide-lanterns-02.png"
+  ]
+}
