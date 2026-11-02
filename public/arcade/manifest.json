@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "gameId": "kata-inspired-by-plants-vs-zombies-codex-dot",
+  "playUrl": "https://intrepion.github.io/kata-inspired-by-plants-vs-zombies-codex-dot/",
+  "screenshots": [
+    {
+      "path": "arcade/screenshots/view-01.jpg",
+      "sha256": "e967b79320c61c3421a8a6d00a209daec4726a3d4a39349b0edb4a0a2f88758f",
+      "alt": "Gameplay capture 1",
+      "provenance": {
+        "kind": "existing_repository_capture",
+        "sourcePath": "docs/screenshots/desktop-harbor.jpg",
+        "deployedBuild": null,
+        "captureDate": null
+      }
+    }
+  ]
+}
