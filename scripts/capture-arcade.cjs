@@ -1,0 +1,9 @@
+'use strict';
+const {chromium}=require('playwright');const {mkdir,readFile,writeFile,readdir}=require('node:fs/promises');const {createHash}=require('node:crypto');const path=require('node:path');
+(async()=>{const output=process.env.CAPTURE_OUTPUT||'/tmp/low-tide-lanterns-captures',site=process.env.CAPTURE_SITE||'capture-site';await mkdir(output,{recursive:true});const inputs={};for(const f of ['index.html',...(await readdir(path.join(site,'assets'))).map(x=>'assets/'+x)])inputs[f]=createHash('sha256').update(await readFile(path.join(site,f))).digest('hex');const browser=await chromium.launch({headless:true});try{
+ const page=await browser.newPage({viewport:{width:1280,height:1000},deviceScaleFactor:1,locale:'en-US',reducedMotion:'reduce'});await page.goto('http://127.0.0.1:4238/',{waitUntil:'domcontentloaded'});await page.locator('#close-help').click(); async function place(kind,row,col){await page.locator(`[data-kind="${kind}"]`).click(); await page.locator(`[data-row="${row}"][data-col="${col}"]`).click()}
+ await place('wick',2,0); for(const row of [1,2,3]) await place('bell',row,1); await page.locator('#start').click(); await page.waitForTimeout(12000); await page.mouse.move(5,5);
+ await page.locator('main').screenshot({path:path.join(output,'low-tide-lanterns-01.png'),animations:'disabled'});
+ await page.waitForTimeout(5000); await page.locator('main').screenshot({path:path.join(output,'low-tide-lanterns-02.png'),animations:'disabled'});
+ await writeFile(path.join(output,'capture.json'),JSON.stringify({schemaVersion:1,workflowCommit:process.env.GITHUB_SHA||null,sourceCommit:process.env.GAME_SOURCE_COMMIT||null,runId:process.env.GITHUB_RUN_ID||null,url:'http://127.0.0.1:4238/',inputs,browser:browser.version(),viewport:{width:1280,height:1000},screenshots:['low-tide-lanterns-01.png','low-tide-lanterns-02.png']},null,2)+'\n');
+ }finally{await browser.close()}})().catch(e=>{console.error(e);process.exitCode=1});
